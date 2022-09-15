@@ -4,8 +4,8 @@ import FileForm from "./FileForm";
 import DownloadBtn from "./DownloadBtn";
 const QR = require('qrcode')
 
-const serverURL = "192.168.0.72"
-const serverPORT = "8080"
+const serverURL = "15.229.86.15"
+const serverPORT = "7000"
 
 function ScanImage(props){
 
@@ -52,9 +52,9 @@ function ScanImage(props){
       if (param === null){
         socket.on("newRoom", (id) => {
           setUrl(id);
-          QR.toDataURL(serverURL+":3000/?id="+id, (err,code) => {
+          QR.toDataURL(window.location.origin+"?id="+id, (err,code) => {
             if (err) return console.log("Error en el qr");
-            console.log(serverURL+":3000/?id="+id)
+            console.log(window.location.origin+"?id="+id)
             setQr(code)
           })
         })
@@ -83,14 +83,14 @@ function ScanImage(props){
         <div className='flex flex-col'>
           <h4 className='text2 text-2xl text-center font-thin w-full mb-5'>Escanee este QR con su teléfono para empezar a transferir archivos</h4>
           <img className='mx-auto' height={200} width={200} alt="Escanee este QR" src={qr} />
-          <a className="text-center text-white" href={"?id="+url} > <small className="text-white">{`${serverURL}:3000/?id=${url}`}</small> </a>
+          <a className="text-center text-white" href={"?id="+url} > <small className="text-white">{`${window.location.origin}?id=${url}`}</small> </a>
         </div>
       }
       { param !== null &&
-        <FileForm id={id} param={param} />
+        <FileForm id={id} url={`${serverURL}:${serverPORT}`} param={param} />
       }
       { files !== undefined && files.map((file,index) => 
-          <DownloadBtn key={file} filename={file} index={index}/>
+          <DownloadBtn url={`${serverURL}:${serverPORT}`} key={file} filename={file} index={index}/>
         )
       }
     </div>

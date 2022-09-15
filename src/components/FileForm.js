@@ -8,9 +8,9 @@ function FileForm(props){
         e.preventDefault();
         const formData = new FormData();
         formData.append('file',file)
-        console.log(`http://192.168.0.72:8080/${props.param}?id=${props.id}`)
+        console.log(`http://${props.url}/${props.param}?id=${props.id}`)
         axios.post(
-            `http://192.168.0.72:8080/${props.param}?id=${props.id}`,
+            `http://${props.url}/${props.param}?id=${props.id}`,
             formData,
             {
                 headers: {

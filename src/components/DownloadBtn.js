@@ -8,7 +8,7 @@ function DownloadBtn(props){
     const download = async () => {
  
 
-        const url= `http://192.168.0.72:8080/download/${props.filename}`;
+        const url= `http://${props.url}/download/${props.filename}`;
         axios({
             url:url,
             method: 'GET',
