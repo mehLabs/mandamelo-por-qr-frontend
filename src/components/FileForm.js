@@ -6,11 +6,11 @@ function FileForm(props){
 
     const submitFile = (e) => {
         e.preventDefault();
-        console.log(file)
         const formData = new FormData();
         formData.append('file',file)
+        console.log(`http://192.168.0.72:8080/${props.param}?id=${props.id}`)
         axios.post(
-            `http://192.168.0.72:8080/${props.param}`,
+            `http://192.168.0.72:8080/${props.param}?id=${props.id}`,
             formData,
             {
                 headers: {

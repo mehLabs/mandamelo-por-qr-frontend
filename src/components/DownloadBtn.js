@@ -2,11 +2,11 @@ import React from "react";
 import axios from "axios";
 
 function DownloadBtn(props){
+    const re = /(?:\.([^.]+))?$/;
+    const ext = re.exec(props.filename)[1];
     
     const download = async () => {
  
-        const re = /(?:\.([^.]+))?$/;
-        const ext = re.exec(props.filename)[1];
 
         const url= `http://192.168.0.72:8080/download/${props.filename}`;
         axios({
@@ -24,7 +24,7 @@ function DownloadBtn(props){
     }
 
     return(
-        <button onClick={download} className="rounded-none my-4 p-4 bg-color2">Descargar archivo</button>
+        <button onClick={download} className="rounded-none my-4 p-4 bg-color2">Descargar archivo {props.index+1} .{ext}</button>
     )
 
 }
