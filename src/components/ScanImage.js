@@ -4,7 +4,7 @@ import FileForm from "./FileForm";
 import DownloadBtn from "./DownloadBtn";
 const QR = require('qrcode')
 
-const serverURL = "15.229.86.15"
+const serverURL = "localhost" //5.229.86.15
 const serverPORT = "7000"
 
 function ScanImage(props){
@@ -15,6 +15,7 @@ function ScanImage(props){
   const [qr,setQr] = useState(null);
   const [param] = useState(new URLSearchParams(window.location.search).get("id"));
   const [files,setFiles] =useState([]);
+  const [emptyRoom,setEmptyRoom] = useState(false)
 
   const getQR = () => {
     socket.emit("newRoom",null)
@@ -22,6 +23,19 @@ function ScanImage(props){
 
   const shouldShowButton = () => {
     return (param === null && qr === null)
+  }
+
+  const handleSocketError = (error) => {
+    switch (error) {
+      case "emptyroom":
+        console.log("ROOM VACÍA!!!")
+        setEmptyRoom(true);
+        break;
+    
+      default:
+        console.log(error)
+        break;
+    }
   }
 
 
@@ -38,7 +52,7 @@ function ScanImage(props){
         console.log(err)
         switch (err.code) {
           case 0:
-            console.log(err.text)
+            handleSocketError(err.text);
             break;
           case 1:
             alert(err.text)
@@ -87,7 +101,7 @@ function ScanImage(props){
         </div>
       }
       { param !== null &&
-        <FileForm id={id} url={`${serverURL}:${serverPORT}`} param={param} />
+        <FileForm emptyRoom={emptyRoom} id={id} url={`${serverURL}:${serverPORT}`} param={param} />
       }
       { files !== undefined && files.map((file,index) => 
           <DownloadBtn url={`${serverURL}:${serverPORT}`} key={file} filename={file} index={index}/>
