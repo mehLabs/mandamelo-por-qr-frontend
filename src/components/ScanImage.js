@@ -4,7 +4,7 @@ import FileForm from "./FileForm";
 import DownloadBtn from "./DownloadBtn";
 const QR = require('qrcode')
 
-const serverURL = "5.229.86.15" //5.229.86.15
+const serverURL = "15.229.86.15" //5.229.86.15
 const serverPORT = "7000"
 
 function ScanImage(props){
