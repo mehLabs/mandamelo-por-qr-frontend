@@ -88,14 +88,20 @@ function ScanImage(props){
     }
   },[files,setFiles,setSocket,param,socket])
 
+  const handleDeleteBtn = (i) => {
+    let archivos = [...files];
+    archivos.splice(i,1)
+    setFiles(archivos)
+  }
+
   return(
     <div className='flex items-center justify-center flex-col mx-auto'>
       { shouldShowButton() &&
-        <button onClick={getQR} className='rounded-none p-4 bg-color1'>Crear QR</button>
+        <button onClick={getQR} className='rounded-none p-4 bg-color1 hover:bg-color1-500'>Crear QR</button>
       }
       { qr !== null &&
         <div className='flex flex-col'>
-          <h4 className='text2 text-2xl text-center font-thin w-full mb-5'>Escanee este QR con su teléfono para empezar a transferir archivos</h4>
+          <h4 className='text2 text-2xl text-center w-full mb-5'>Escanee este QR con su teléfono para empezar a transferir archivos</h4>
           <img className='mx-auto' height={200} width={200} alt="Escanee este QR" src={qr} />
           <a className="text-center text-white" href={"?id="+url} > <small className="text-white">{`${window.location.origin}?id=${url}`}</small> </a>
         </div>
@@ -104,7 +110,7 @@ function ScanImage(props){
         <FileForm emptyRoom={emptyRoom} id={id} url={`${serverURL}:${serverPORT}`} param={param} />
       }
       { files !== undefined && files.map((file,index) => 
-          <DownloadBtn url={`${serverURL}:${serverPORT}`} key={file} filename={file} index={index}/>
+          <DownloadBtn handleDeleteBtn={handleDeleteBtn} url={`${serverURL}:${serverPORT}`} key={file} filename={file} index={index}/>
         )
       }
     </div>

@@ -11,7 +11,10 @@ module.exports = {
     extend: {
     },
     colors: {
-      'color1': '#DEB992',
+      'color1': {
+        DEFAULT: '#DEB992',
+        500: '#efdcc9'
+      },
       'color2': {
         DEFAULT: '#1BA098',
         500: '#8DD0CC'

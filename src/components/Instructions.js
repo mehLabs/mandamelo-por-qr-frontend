@@ -12,7 +12,7 @@ function Instructions(props){
         <>
         {   !dismiss
             &&
-            <div className="mx-auto mt-8 p-6 max-w-xl bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+            <div className="mx-auto mt-8 p-6 max-w-xl bg-color2 rounded-lg border border-color1 shadow-md dark:bg-gray-800 dark:border-gray-700">
                 <div className="flex justify-between">
                     <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Instrucciones de uso</h5>
                     <button onClick={close}>

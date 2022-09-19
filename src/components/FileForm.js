@@ -61,8 +61,8 @@ function FileForm(props){
             }
             </h4>
             <form className="flex flex-col gap-4" onSubmit={submitFile}>
-                <input type="file" onChange={handleChangeFile} />
-                <button className="rounded-none p-4 bg-color2 hover:bg-color2-500" type="submit">Enviar</button>
+                <input className="bg-color2" type="file" onChange={handleChangeFile} />
+                <button className="rounded-none p-4 bg-color1 hover:bg-color1-500" type="submit">Enviar</button>
                 {   percentile > 0 &&
                     <div className="w-full h-6 bg-gray-200 rounded-full dark:bg-gray-700">
                         <div className="h-6 bg-white rounded-full dark:bg-blue-500" style={{width: +Math.round(percentile)+"%"}}>
