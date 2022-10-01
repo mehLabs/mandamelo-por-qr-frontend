@@ -25,7 +25,11 @@ function FileForm(props){
     const submitFile = (e) => {
         e.preventDefault();
         const formData = new FormData();
-        formData.append('file',file)
+        for (let i = 0; i < file.length; i++) {
+            const singleFile = file[i];
+            console.log(singleFile)
+            formData.append('file',singleFile)
+        }
         console.log(`http://${props.url}/${props.param}?id=${props.id}`)
         axios.post(
             `http://${props.url}/${props.param}?id=${props.id}`,
@@ -44,7 +48,7 @@ function FileForm(props){
     }
 
     const handleChangeFile = (event) =>{
-        setFile(event.target.files[0])
+        setFile(event.target.files)
     }
 
     const dismiss = () => {
@@ -61,7 +65,7 @@ function FileForm(props){
             }
             </h4>
             <form className="flex flex-col gap-4" onSubmit={submitFile}>
-                <input className="bg-color2" type="file" onChange={handleChangeFile} />
+                <input className="bg-color2" type="file" multiple onChange={handleChangeFile} />
                 <button className="rounded-none p-4 bg-color1 hover:bg-color1-500" type="submit">Enviar</button>
                 {   percentile > 0 &&
                     <div className="w-full h-6 bg-gray-200 rounded-full dark:bg-gray-700">

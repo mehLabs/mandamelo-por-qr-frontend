@@ -4,7 +4,7 @@ import FileForm from "./FileForm";
 import DownloadBtn from "./DownloadBtn";
 const QR = require('qrcode')
 
-const serverURL = "15.229.86.15" //5.229.86.15
+const serverURL = "15.229.86.15" //15.229.86.15
 const serverPORT = "7000"
 
 function ScanImage(props){
@@ -38,8 +38,16 @@ function ScanImage(props){
     }
   }
 
+  
 
   useEffect ( () => {
+    let downloadedFiles = files.concat();
+    const newFile = (theFile) => {
+      downloadedFiles.push(theFile)
+      setFiles(downloadedFiles)
+      console.log(files)
+    }
+
     if (socket === null){
       setSocket(io(`${serverURL}:${serverPORT}`))
     }
@@ -73,8 +81,10 @@ function ScanImage(props){
           })
         })
         socket.on("newFile", (filename) =>{
+          console.log(filename)
+
           console.log("Archivo listo para descargar")
-          setFiles(files.concat(filename))
+          newFile(filename)
         })
         
 
@@ -87,6 +97,8 @@ function ScanImage(props){
 
     }
   },[files,setFiles,setSocket,param,socket])
+
+  
 
   const handleDeleteBtn = (i) => {
     let archivos = [...files];
@@ -110,7 +122,7 @@ function ScanImage(props){
         <FileForm emptyRoom={emptyRoom} id={id} url={`${serverURL}:${serverPORT}`} param={param} />
       }
       { files !== undefined && files.map((file,index) => 
-          <DownloadBtn handleDeleteBtn={handleDeleteBtn} url={`${serverURL}:${serverPORT}`} key={file} filename={file} index={index}/>
+          <DownloadBtn handleDeleteBtn={handleDeleteBtn} url={`${serverURL}:${serverPORT}`} key={file.filename} filename={file.filename} originalname={file.originalname} index={index}/>
         )
       }
     </div>

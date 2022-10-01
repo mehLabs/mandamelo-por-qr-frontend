@@ -2,8 +2,6 @@ import React from "react";
 import axios from "axios";
 
 function DownloadBtn(props){
-    const re = /(?:\.([^.]+))?$/;
-    const ext = re.exec(props.filename)[1];
     
     const download = async () => {
  
@@ -18,7 +16,7 @@ function DownloadBtn(props){
                 const url = window.URL.createObjectURL(new Blob([response.data]));
                 const link = document.createElement('a');
                 link.href = url;
-                link.setAttribute('download', 'file.'+ext);
+                link.setAttribute('download', props.originalname);
                 document.body.appendChild(link);
                 link.click();
             } catch (error) {
@@ -33,7 +31,10 @@ function DownloadBtn(props){
     }
 
     return(
-        <button onClick={download} className="rounded-none my-4 p-4 bg-color2 hover:bg-color2-500">Descargar archivo {props.index+1} .{ext}</button>
+        <button onClick={download} className="rounded-none my-4 p-4 bg-color2 hover:bg-color2-500">
+            <p><strong>Descargar archivo</strong></p>
+            <p>{props.originalname}</p>
+        </button>
     )
 
 }
